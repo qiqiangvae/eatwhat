@@ -6,3 +6,8 @@ export interface HistoryItem {
   result: string;
   timestamp: number;
 }
+
+export interface FavoritesState {
+  ids: string[];
+  showFavoritesOnly: boolean;
+}

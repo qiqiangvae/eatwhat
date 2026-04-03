@@ -6,9 +6,19 @@ interface Props {
   selectedTags: Tag[];
   toggleTag: (tag: Tag) => void;
   clearTags: () => void;
+  showFavoritesOnly: boolean;
+  setShowFavoritesOnly: (v: boolean) => void;
+  favoritesCount: number;
 }
 
-export default function FloatingBall({ selectedTags, toggleTag, clearTags }: Props) {
+export default function FloatingBall({ 
+  selectedTags, 
+  toggleTag, 
+  clearTags,
+  showFavoritesOnly,
+  setShowFavoritesOnly,
+  favoritesCount,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -42,6 +52,21 @@ export default function FloatingBall({ selectedTags, toggleTag, clearTags }: Pro
               </button>
             </div>
             <div className="p-3 overflow-y-auto flex-1">
+              <div className="mb-3">
+                <button
+                  onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                  className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2
+                    ${showFavoritesOnly 
+                      ? 'bg-[#FF6B6B] text-white' 
+                      : 'bg-gray-100 text-[#636E72] hover:bg-gray-200'
+                    }
+                  `}
+                >
+                  <span>{showFavoritesOnly ? '❤️' : '🤍'}</span>
+                  <span>只看收藏</span>
+                  <span className="ml-auto text-xs opacity-75">({favoritesCount})</span>
+                </button>
+              </div>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={clearTags}

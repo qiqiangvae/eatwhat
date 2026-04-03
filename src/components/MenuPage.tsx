@@ -8,6 +8,8 @@ interface Props {
   toggleTag: (tag: Tag) => void;
   clearTags: () => void;
   onDecide: (name: string) => void;
+  isFavorite: (id: string) => boolean;
+  toggleFavorite: (id: string) => void;
 }
 
 export default function MenuPage({
@@ -16,6 +18,8 @@ export default function MenuPage({
   toggleTag,
   clearTags,
   onDecide,
+  isFavorite,
+  toggleFavorite,
 }: Props) {
   return (
     <div className="p-4">
@@ -58,9 +62,20 @@ export default function MenuPage({
           <button
             key={item.id}
             onClick={() => onDecide(item.name)}
-            className="bg-white p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="bg-white p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all relative"
           >
-            <div className="font-medium text-[#2D3436] mb-1 truncate">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(item.id);
+              }}
+              className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-all"
+            >
+              <span className={`text-lg ${isFavorite(item.id) ? 'text-[#FF6B6B]' : 'text-gray-300'}`}>
+                {isFavorite(item.id) ? '❤️' : '🤍'}
+              </span>
+            </button>
+            <div className="font-medium text-[#2D3436] mb-1 truncate pr-8">
               {item.name}
             </div>
             <div className="flex flex-wrap gap-1">

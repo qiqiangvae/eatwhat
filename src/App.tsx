@@ -11,7 +11,17 @@ type Tab = 'decision' | 'menu' | 'history';
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('decision');
   const { history, addHistory, clearHistory } = useHistory();
-  const { filteredMenu, selectedTags, toggleTag, clearTags } = useMenu();
+  const { 
+    filteredMenu, 
+    selectedTags, 
+    toggleTag, 
+    clearTags,
+    toggleFavorite,
+    isFavorite,
+    showFavoritesOnly,
+    setShowFavoritesOnly,
+    favorites,
+  } = useMenu();
 
   const handleDecide = (result: string, mode: 'dice' | 'wheel' | 'elimination') => {
     addHistory(mode, result);
@@ -36,6 +46,8 @@ export default function App() {
             toggleTag={toggleTag}
             clearTags={clearTags}
             onDecide={(name) => handleDecide(name, 'wheel')}
+            isFavorite={isFavorite}
+            toggleFavorite={toggleFavorite}
           />
         )}
         {activeTab === 'history' && (
@@ -47,6 +59,9 @@ export default function App() {
         selectedTags={selectedTags}
         toggleTag={toggleTag}
         clearTags={clearTags}
+        showFavoritesOnly={showFavoritesOnly}
+        setShowFavoritesOnly={setShowFavoritesOnly}
+        favoritesCount={favorites.size}
       />
 
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2 safe-area-bottom">
