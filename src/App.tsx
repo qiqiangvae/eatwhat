@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DecisionPage from './components/DecisionPage';
 import MenuPage from './components/MenuPage';
 import HistoryPage from './components/HistoryPage';
+import FloatingBall from './components/FloatingBall';
 import { useHistory } from './hooks/useHistory';
 import { useMenu } from './hooks/useMenu';
 
@@ -41,6 +42,12 @@ export default function App() {
           <HistoryPage history={history} clearHistory={clearHistory} />
         )}
       </main>
+
+      <FloatingBall
+        selectedTags={selectedTags}
+        toggleTag={toggleTag}
+        clearTags={clearTags}
+      />
 
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2 safe-area-bottom">
         {[
